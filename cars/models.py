@@ -29,8 +29,13 @@ class Car(models.Model):
     insurance_type = models.CharField(max_length=20, choices= INSURANCE, default='BASIC')
     vin = models.CharField(max_length=30, unique=True)
     color = models.CharField(max_length=20)
-    owner = models.CharField(max_length=20)  #In the future Owner should have own table, to be linked with foreignkey
-    # Later we need to add status field where it needs to have choices such as (in_rent, available, in_service, ...)
-    
+    owner = models.CharField(max_length=20)  
+    # In the future Owner should have own table, to be linked with foreignkey
+    # Later we need to add status field where it needs to have 
+    # choices such as (in_rent, available, in_service, ...)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
     def __str__(self):
         return f"{self.registration_number}: {self.car_make} {self.car_model}"
