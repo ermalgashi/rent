@@ -38,4 +38,4 @@ class Car(models.Model):
 
 
     def __str__(self):
-        return f"{self.registration_number}: {self.car_make} {self.car_model}"
+        return f"{self.registration_number}"
