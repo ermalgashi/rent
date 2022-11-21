@@ -18,6 +18,7 @@ class Customer(models.Model):
     phone_number = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
     license_id = models.CharField(max_length=50, unique=True)
+    # Adding Scanned License should be optional, but will it help the data or is it not nescessary. 
     country = models.CharField(max_length=10, choices= COUNTRIES, default='ITALY')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -1,6 +1,3 @@
-from copyreg import pickle
-import imp
-from pyexpat import model
 from django.db import models
 from customer.models import Customer
 from cars.models import Car
