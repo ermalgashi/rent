@@ -1,7 +1,4 @@
-from django.shortcuts import render
-from .models import Car
+from django.http import HttpResponse
 
-# Create your views here.
 def home(request):
-    cars = Car.objects.all()
-    return render(request, 'cars/base.html', {'cars':cars})
+    return HttpResponse("Cars app")
