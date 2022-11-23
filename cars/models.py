@@ -29,7 +29,8 @@ class Car(models.Model):
     insurance_type = models.CharField(max_length=20, choices= INSURANCE, default='BASIC')
     vin = models.CharField(max_length=30, unique=True)
     color = models.CharField(max_length=20)
-    owner = models.CharField(max_length=20)  
+    owner = models.CharField(max_length=20)
+    referal_price = models.DecimalField(max_digits = 5, decimal_places = 2)
     # In the future Owner should have own table, to be linked with foreignkey
     # Later we need to add status field where it needs to have 
     # choices such as (in_rent, available, in_service, ...)
@@ -39,3 +40,6 @@ class Car(models.Model):
 
     def __str__(self):
         return f"{self.registration_number}"
+    
+    def get_referal_price(self):
+        return self.referal_price
