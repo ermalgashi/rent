@@ -1,10 +1,12 @@
 {% for car in cars %}
 <tr id="" class="car-row">
-  <td>{{ car.car_make }} {{car_model}}</td>
+  <td>{{ car.car_make }} {{car.car_model}}</td>
   <td>{{ car.registration_number }}</td>
   <td>{{ car.insurance_type }}</td>
   <td>
-    <button class="btn btn-primary btn-sm" hx-get="" hx-target="#dialog">Ndrysho</button>
+    <button class="btn" hx-get="" hx-target="#dialog"><i class="fa-solid fa-pen"> </i></button>
+    <button class="btn" hx-get="" hx-target="#dialog"><i class="fa-solid fa-eye"> </i></button>
+    
   </td>
 </tr>
 {% endfor %}
