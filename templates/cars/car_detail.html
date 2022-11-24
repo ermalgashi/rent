@@ -1,0 +1,21 @@
+{% load widget_tweaks %}
+{% with WIDGET_ERROR_CLASS='is-invalid' %}
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">{{car.car_make}} {{car.car_model}} ({{car.car_year}})<br> {{car.registration_number}} </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{car.car_engine}}l {{car.car_fuel_type}} </p>
+    ,'registration_date', 'registration_expiration_date',
+    'insurance_type', 'vin', 'color', 'owner', 'referal_price'
+    {{car.car_capacity}}
+  </div>
+  <div class="modal-footer">
+
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+      Close
+    </button>
+  </div>
+</div>
+{% endwith %}

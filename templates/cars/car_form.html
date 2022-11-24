@@ -73,17 +73,15 @@
     </div>
     <div class="mb-3">
         <label for="{{ form.referal_price.id_for_label }}" class="form-label">Referal Price</label>
-        {% render_field form.referal_price class="form-control" placeholder="Melodia" %}
+        {% render_field form.referal_price class="form-control" placeholder="50.00€" %}
         <div class="invalid-feedback">{{ form.referal_price.errors|first }}</div>
     </div>
 
-
-
   <div class="modal-footer">
-    {% if movie %}
-    <button type="button" class="btn btn-danger" hx-post="{% url 'remove_movie' pk=movie.pk %}">Remove</button>
+    {% comment %} {% if car %}
+    <button type="button" class="btn btn-danger" hx-post="{% url 'cars:remove_car' pk=car.pk %}">Remove</button>
     <span class="flex-grow-1"></span>
-    {% endif %}
+    {% endif %} {% endcomment %}
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
       Cancel
     </button>

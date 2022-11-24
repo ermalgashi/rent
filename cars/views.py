@@ -6,12 +6,21 @@ from .models import Car
 from .forms import CarForm
 
 
+
 def home(request):
     return render(request,'base.html')
 
 def car_list(request):
+    
     return render(request, 'cars/car_list.html', {
-        'cars': Car.objects.all(),
+        'cars': Car.objects.all().order_by('registration_expiration_date'),
+    })
+
+def detail_car(request, pk):
+    car = Car.objects.get(pk=pk)
+    
+    return render(request, 'cars/car_detail.html', {
+        'car': car,
     })
 
 def add_car(request):
@@ -24,7 +33,7 @@ def add_car(request):
                 headers={
                     'HX-Trigger': json.dumps({
                         "carListChanged": None,
-                        "showMessage": f"{car.car_make} added."
+                        # "showMessage": f"{car.car_make} added."
                     })
                 })
     else:
@@ -34,7 +43,7 @@ def add_car(request):
     })
 
 def edit_car(request, pk):
-    car = get_object_or_404(car, pk=pk)
+    car = get_object_or_404(Car, pk=pk)
     if request.method == "POST":
         form = CarForm(request.POST, instance=car)
         if form.is_valid():
@@ -50,7 +59,7 @@ def edit_car(request, pk):
             )
     else:
         form = CarForm(instance=car)
-    return render(request, 'cars/car_form.html.html', {
+    return render(request, 'cars/car_form.html', {
         'form': form,
         'car': car,
     })

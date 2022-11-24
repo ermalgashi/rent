@@ -8,7 +8,6 @@ class Reservation(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits = 5, decimal_places = 2)
-    final_price = models.DecimalField(max_digits = 5, decimal_places = 2)
     pickup_date = models.DateField()
     return_date = models.DateField()
 
