@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 
 from customer.forms import CustomerForm
-from .models import Customer
 
 # Create your views here.
 def add_customer(request, id=None):

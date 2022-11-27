@@ -8,7 +8,7 @@ from .forms import CarForm
 
 
 def home(request):
-    return render(request,'base.html')
+    return render(request,'cars/car_base.html')
 
 def car_list(request):
     
@@ -33,7 +33,7 @@ def add_car(request):
                 headers={
                     'HX-Trigger': json.dumps({
                         "carListChanged": None,
-                        # "showMessage": f"{car.car_make} added."
+                        "showMessage": f"{car.car_make} added."
                     })
                 })
     else:
@@ -63,3 +63,4 @@ def edit_car(request, pk):
         'form': form,
         'car': car,
     })
+    

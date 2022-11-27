@@ -6,10 +6,12 @@
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
   <div class="modal-body">
-    <p>{{car.car_engine}}l {{car.car_fuel_type}} </p>
-    ,'registration_date', 'registration_expiration_date',
-    'insurance_type', 'vin', 'color', 'owner', 'referal_price'
-    {{car.car_capacity}}
+    <p><strong>Motori:</strong> {{car.car_engine}} {{car.car_fuel_type}} </p>
+    <p><strong>Data e regjistrimit: </strong>{{car.registration_date}}</p>
+    <p><strong>Data e skadimit: </strong>{{car.registration_expiration_date}}</p>
+    <p><strong>Sigurimi: </strong>{{car.insurance_type}} <strong>Vin: </strong>{{car.vin}}</p>
+    <p><strong>Ngjyra:</strong>{{car.color}} <strong>Kapcaiteti:</strong> {{car.car_capacity}}</p>
+    <p><strong>Pronari:</strong> {{car.owner}} <strong>Çmimi:</strong>{{car.referal_price}}€</p>
   </div>
   <div class="modal-footer">
 

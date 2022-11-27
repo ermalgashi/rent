@@ -62,10 +62,9 @@
     for (var i = 0; i < registration_expiration_date.length; i++) {
       expiration_date = new Date(registration_expiration_date[i].innerHTML.replace(/[.,]/g,""))
       const today = new Date();
-      
-      
+
       if (today > expiration_date){ 
-        registration_expiration_date[i].style.color = 'red'
+        registration_expiration_date[i].style.background = 'rgba(255,0,0,0.5)';
       }
     }
   })            
