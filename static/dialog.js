@@ -53,9 +53,10 @@
   })()
 
 
+// This condition is not scalable, we need to come with different solution
+if(!window.location.href.endsWith("customers/")){
 ;(function () {
   htmx.on("htmx:afterOnLoad", () => {
-    
     const registration_expiration_date = document.getElementsByClassName("registration_expiration_date")
 
     registration_expiration_date[0].innerHTML
@@ -69,4 +70,4 @@
     }
   })            
 
-})()
+})()}
