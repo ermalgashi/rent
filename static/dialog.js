@@ -54,7 +54,7 @@
 
 
 // This condition is not scalable, we need to come with different solution
-if(!window.location.href.endsWith("customers/")){
+if(window.location.href.endsWith("cars/")){
 ;(function () {
   htmx.on("htmx:afterOnLoad", () => {
     const registration_expiration_date = document.getElementsByClassName("registration_expiration_date")
@@ -63,9 +63,12 @@ if(!window.location.href.endsWith("customers/")){
     for (var i = 0; i < registration_expiration_date.length; i++) {
       expiration_date = new Date(registration_expiration_date[i].innerHTML.replace(/[.,]/g,""))
       const today = new Date();
-
-      if (today > expiration_date){ 
+     
+      difference = Math.ceil((expiration_date-today) / (1000 * 3600 * 24))
+      if (difference < 1){ 
         registration_expiration_date[i].style.background = 'rgba(255,0,0,0.5)';
+      } else if (difference <= 10){
+        registration_expiration_date[i].style.background = 'rgb(170, 255, 0)';
       }
     }
   })            

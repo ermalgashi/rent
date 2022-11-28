@@ -1,5 +1,7 @@
 from django.db import models
 
+
+
 FUEL_TYPE_CHOICES = (
     ('DIESEL','Diesel'),
     ('PETROL', 'Petrol'),
@@ -43,3 +45,5 @@ class Car(models.Model):
     
     def get_referal_price(self):
         return self.referal_price
+
+    

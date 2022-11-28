@@ -18,3 +18,13 @@ class Reservation(models.Model):
     def grand_total(self):
         # duhet qartesohet data e fillimit dhe e kthimit.
         return str((self.return_date - self.pickup_date ).days  * self.price) + " €"
+
+    def check_avialability(self):
+        return self.pickup_date - self.return_date
+        # We need a function that connects with the reservation app to check if the car is available on given dates        
+
+    def customer_revenue(self):
+        pass
+
+    def car_revenue(self):
+        pass
