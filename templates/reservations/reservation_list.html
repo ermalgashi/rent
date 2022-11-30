@@ -1,3 +1,4 @@
+
 {% for reservation in reservations %}
 <tr id="" class="reservation-row">
   <td>{{ reservation.customer }}</td>
@@ -12,4 +13,5 @@
   <button class="btn" hx-get="{% url 'reservations:reservations_detail' pk=reservation.pk %}" hx-target="#view-dialog"><i class="fa-solid fa-eye"> </i></button>
   </td>
 </tr>
+
 {% endfor %}
