@@ -4,29 +4,44 @@ from cars.models import Car
 import datetime as dt
 import datetime
 
+def check_car_availability(pickup_date, return_date, car):
+   qs = Reservation.objects.filter(
+      pickup_date__lte=pickup_date,
+      return_date__gte=return_date,
+      car = car,
+      )
+
+   #  if len(qs) >= room_count:
+   #      return False
+   return True
+
+
+
+
 # Create your views here.
 def reservations_base(request):
    return render(request,'reservations/reservation_base.html')
 
 def reservations_list(request):
-   reservations = Reservation.objects.all()
-
+   reservations = Reservation.objects.all()   
    return render(request,'reservations/reservation_list.html', {'reservations' : reservations})
 
 def reservations_detail(request, pk):
     reservation = Reservation.objects.get(pk=pk)
-
     return render(request, 'reservations/reservation_detail.html', {
         'reservation': reservation,
     })
 
 
 
-def reservations_add(request, pk):
-   new_reservation = Reservation.objects.get(pk=pk)
+def reservations_add(request):
+   new_reservation = Reservation.objects.get()
    reservations = Reservation.objects.filter(car__registration_number=new_reservation.car)
-   start_date = '2022-11-20'
-   end_date = '2022-11-30'
+   start_date = '2022-11-10'
+   end_date = '2022-11-13'
+
+   check_car_availability(start_date, end_date, "01-603-KK")
+   
    filter_params = dict(pickup_date__lte=end_date, return_date__gte=start_date) # just for redability
    is_occupied = Reservation.objects.filter(**filter_params, car__registration_number="01-603-KK")
   
