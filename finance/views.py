@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from .models import Reservation
-from cars.models import Car
-import datetime as dt
-import datetime
+from .forms import ReservationForm
+
 
 def check_car_availability(pickup_date, return_date, car):
    qs = Reservation.objects.filter(
@@ -11,8 +10,6 @@ def check_car_availability(pickup_date, return_date, car):
       car = car,
       )
 
-   #  if len(qs) >= room_count:
-   #      return False
    return True
 
 
@@ -34,30 +31,23 @@ def reservations_detail(request, pk):
 
 
 
-def reservations_add(request):
-   new_reservation = Reservation.objects.get()
-   reservations = Reservation.objects.filter(car__registration_number=new_reservation.car)
-   start_date = '2022-11-10'
-   end_date = '2022-11-13'
+def reservations_add(request, **args):
+   if request.method == "POST":
+        form = ReservationForm(request.POST)
 
-   check_car_availability(start_date, end_date, "01-603-KK")
+   else:
+        form = ReservationForm()
+
+   reservations = Reservation.objects.all()
+   # reservations = Reservation.objects.filter(car=new_reservation.car)
+   start_date = '2022-11-23'
+   end_date = '2022-11-25'
+
+   for reservation in reservations:
+      print(check_car_availability(start_date, end_date, reservation.car))
    
    filter_params = dict(pickup_date__lte=end_date, return_date__gte=start_date) # just for redability
    is_occupied = Reservation.objects.filter(**filter_params, car__registration_number="01-603-KK")
-  
-   for reservation in reservations:
-      date_list = [reservation.pickup_date + datetime.timedelta(days=x) for x in range((reservation.return_date-reservation.pickup_date).days)]
-
-      for date in date_list:
-         print(date)
-   
-   #  new_reservation = Reservation.objects.get(pk=1)
-   
-   # reservations = Reservation.objects.filter(car__registration_number=new_reservation.car)
-   # start_date = '2022-11-20'
-   # end_date = '2022-11-30'
-   # filter_params = dict(pickup_date__lte=end_date, return_date__gte=start_date) # just for redability
-   # is_occupied = Reservation.objects.filter(**filter_params, car__registration_number="01-603-KK")
   
    # for reservation in reservations:
    #    date_list = [reservation.pickup_date + datetime.timedelta(days=x) for x in range((reservation.return_date-reservation.pickup_date).days)]
@@ -65,24 +55,6 @@ def reservations_add(request):
    #    for date in date_list:
    #       print(date)
    
-   # date_list = [ 
-   #    dict(start=start_date, end=end_date), 
-   # ]
-
-  
-   # base = dt.datetime.strptime(reservation.pickup_date, "%Y-%m-%d")
-   # end_base = dt.datetime.strptime(reservation.return_date, "%Y-%m-%d")     
-
-   # # Code to test from stackoverflow.
-   # for date in date_list: 
-   #      start_date, end_date = date.values() 
-   #      filter_params = dict(pickup_date__lte=end_date, return_date__gte=start_date)
-   #      is_occupied = Reservation.objects.filter(**filter_params, car__registration_number="01-603-KK").exists() 
-   #      if is_occupied: 
-   #          print('Not Available on this range, start: {} end: {}'.format(start_date, end_date)) 
-   #      else: 
-   #          print('Available on this range, start: {} end: {}'.format(start_date, end_date)) 
-
    return render(request, 'reservations/reservation_add.html', {
-        'reservation': reservation,
+        'reservation': reservation, 'form': form,
     })

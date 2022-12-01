@@ -7,10 +7,12 @@
   </div>
   <div class="modal-body">
     <div class="mb-3">
-      <label for="{{ form.car_make.id_for_label }}" class="form-label">Make</label>
-      {% render_field form.car_make class="form-control" placeholder="VW" %}
-      <div class="invalid-feedback">{{ form.car_make.errors|first }}</div>
-    </div>
+      <label for="{{ form.pickup_date.id_for_label }}" class="form-label">Registration Date</label>
+      {% render_field form.pickup_date type="date" class="form-control" placeholder="2022-11-01" %}
+      <div class="invalid-feedback">{{ form.pickup_date.errors|first }}</div>
+  </div>
+
+    <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
       Cancel
     </button>

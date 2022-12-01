@@ -9,6 +9,9 @@ media
 # Backup files # 
 *.bak 
 
+# Self Ideas
+code_in_review.html
+
 # If you are using PyCharm # 
 # User-specific stuff
 .idea/**/workspace.xml

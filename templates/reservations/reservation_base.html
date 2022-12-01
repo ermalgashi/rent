@@ -27,7 +27,7 @@
         </tr>
       </tbody>
   </table>
-  <button hx-get="" hx-target="#dialog" class="btn btn-primary">
+  <button hx-get="{% url 'reservations:reservations_add' %}" hx-target="#dialog" class="btn btn-primary">
     Shto Rezervim
   </button>
 </div>
@@ -39,7 +39,7 @@
 
    <!-- Placeholder for the view modal -->
 <div id="second-modal" class="modal fade">
-      <div id="view-dialog" class="modal-dialog" hx-target="this"></div>
+    <div id="view-dialog" class="modal-dialog" hx-target="this"></div>
 </div>
 
 <!-- Empty toast to show the message -->
