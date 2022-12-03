@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('finance', '0002_alter_reservation_pickup_date_and_more'),
+        ("finance", "0002_alter_reservation_pickup_date_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='reservation',
-            name='pickup_date',
+            model_name="reservation",
+            name="pickup_date",
             field=models.DateField(),
         ),
         migrations.AlterField(
-            model_name='reservation',
-            name='return_date',
+            model_name="reservation",
+            name="return_date",
             field=models.DateField(),
         ),
     ]

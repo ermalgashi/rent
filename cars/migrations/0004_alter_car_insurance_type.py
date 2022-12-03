@@ -6,13 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cars', '0003_auto_20221121_1406'),
+        ("cars", "0003_auto_20221121_1406"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='car',
-            name='insurance_type',
-            field=models.CharField(choices=[('CASCO', 'Casco'), ('BASIC', 'Basic'), ('REGIONAL', 'Regional'), ('INTERNATIONAL', 'International')], default='BASIC', max_length=20),
+            model_name="car",
+            name="insurance_type",
+            field=models.CharField(
+                choices=[
+                    ("CASCO", "Casco"),
+                    ("BASIC", "Basic"),
+                    ("REGIONAL", "Regional"),
+                    ("INTERNATIONAL", "International"),
+                ],
+                default="BASIC",
+                max_length=20,
+            ),
         ),
     ]

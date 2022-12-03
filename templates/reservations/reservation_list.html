@@ -3,7 +3,7 @@
 <tr id="" class="reservation-row">
   <td>{{ reservation.customer }}</td>
   <td>{{ reservation.car }}</td>
-  <td><span class="">{{ reservation.pickup_date }} - {{ reservation.return_date }}</span></td>
+  <td><span class="">{{ reservation.pickup_date|date:"d-M-y" }} / {{ reservation.return_date|date:"d-M-y" }}</span></td>
   <td>{{reservation.get_days}}</td>
   <td>{{ reservation.price }}€</td>
   <td>{{ reservation.grand_total }}€</td>

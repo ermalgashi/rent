@@ -6,22 +6,32 @@ from .models import Car
 from .forms import CarForm
 
 
-
 def home(request):
-    return render(request,'cars/car_base.html')
+    return render(request, "cars/car_base.html")
+
 
 def car_list(request):
-    
-    return render(request, 'cars/car_list.html', {
-        'cars': Car.objects.all().order_by('registration_expiration_date'),
-    })
+
+    return render(
+        request,
+        "cars/car_list.html",
+        {
+            "cars": Car.objects.all().order_by("registration_expiration_date"),
+        },
+    )
+
 
 def detail_car(request, pk):
     car = Car.objects.get(pk=pk)
-    
-    return render(request, 'cars/car_detail.html', {
-        'car': car,
-    })
+
+    return render(
+        request,
+        "cars/car_detail.html",
+        {
+            "car": car,
+        },
+    )
+
 
 def add_car(request):
     if request.method == "POST":
@@ -31,16 +41,24 @@ def add_car(request):
             return HttpResponse(
                 status=204,
                 headers={
-                    'HX-Trigger': json.dumps({
-                        "carListChanged": None,
-                        "showMessage": f"{car.car_make} added."
-                    })
-                })
+                    "HX-Trigger": json.dumps(
+                        {
+                            "carListChanged": None,
+                            "showMessage": f"{car.car_make} added.",
+                        }
+                    )
+                },
+            )
     else:
         form = CarForm()
-    return render(request, 'cars/car_form.html', {
-        'form': form,
-    })
+    return render(
+        request,
+        "cars/car_form.html",
+        {
+            "form": form,
+        },
+    )
+
 
 def edit_car(request, pk):
     car = get_object_or_404(Car, pk=pk)
@@ -51,16 +69,21 @@ def edit_car(request, pk):
             return HttpResponse(
                 status=204,
                 headers={
-                    'HX-Trigger': json.dumps({
-                        "carListChanged": None,
-                        "showMessage": f"{car.car_make} updated."
-                    })
-                }
+                    "HX-Trigger": json.dumps(
+                        {
+                            "carListChanged": None,
+                            "showMessage": f"{car.car_make} updated.",
+                        }
+                    )
+                },
             )
     else:
         form = CarForm(instance=car)
-    return render(request, 'cars/car_form.html', {
-        'form': form,
-        'car': car,
-    })
-    
+    return render(
+        request,
+        "cars/car_form.html",
+        {
+            "form": form,
+            "car": car,
+        },
+    )

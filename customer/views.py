@@ -8,20 +8,30 @@ from .models import Customer
 # Create your views here.
 def customer_base(request):
     customers = Customer.objects.all()
-    return render(request,'customer/customer_base.html', {"customers":customers})
+    return render(request, "customer/customer_base.html", {"customers": customers})
+
 
 def customer_list(request):
-    
-    return render(request, 'customer/customer_list.html', {
-        'customers': Customer.objects.all().order_by("-id"),
-    })
+
+    return render(
+        request,
+        "customer/customer_list.html",
+        {
+            "customers": Customer.objects.all().order_by("-id"),
+        },
+    )
+
 
 def customer_detail(request, pk):
     customer = Customer.objects.get(pk=pk)
-    
-    return render(request, 'customer/customer_detail.html', {
-        'customer': customer,
-    })
+
+    return render(
+        request,
+        "customer/customer_detail.html",
+        {
+            "customer": customer,
+        },
+    )
 
 
 def customer_add(request):
@@ -32,16 +42,23 @@ def customer_add(request):
             return HttpResponse(
                 status=204,
                 headers={
-                    'HX-Trigger': json.dumps({
-                        "customerListChanged": None,
-                        "showMessage": f"{customer.name} added."
-                    })
-                })
+                    "HX-Trigger": json.dumps(
+                        {
+                            "customerListChanged": None,
+                            "showMessage": f"{customer.name} added.",
+                        }
+                    )
+                },
+            )
     else:
         form = CustomerForm()
-    return render(request, 'customer/customer_form.html', {
-        'form': form,
-    })
+    return render(
+        request,
+        "customer/customer_form.html",
+        {
+            "form": form,
+        },
+    )
 
 
 def customer_edit(request, pk):
@@ -53,15 +70,21 @@ def customer_edit(request, pk):
             return HttpResponse(
                 status=204,
                 headers={
-                    'HX-Trigger': json.dumps({
-                        "customerListChanged": None,
-                        "showMessage": f"{customer.name} updated."
-                    })
-                }
+                    "HX-Trigger": json.dumps(
+                        {
+                            "customerListChanged": None,
+                            "showMessage": f"{customer.name} updated.",
+                        }
+                    )
+                },
             )
     else:
         form = CustomerForm(instance=customer)
-    return render(request, 'customer/customer_form.html', {
-        'form': form,
-        'customer': customer,
-    })
+    return render(
+        request,
+        "customer/customer_form.html",
+        {
+            "form": form,
+            "customer": customer,
+        },
+    )
