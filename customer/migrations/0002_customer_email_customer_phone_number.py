@@ -6,20 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('customer', '0001_initial'),
+        ("customer", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='customer',
-            name='email',
-            field=models.EmailField(default='example@email.com', max_length=254),
+            model_name="customer",
+            name="email",
+            field=models.EmailField(default="example@email.com", max_length=254),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='customer',
-            name='phone_number',
-            field=models.CharField(default='12', max_length=50),
+            model_name="customer",
+            name="phone_number",
+            field=models.CharField(default="12", max_length=50),
             preserve_default=False,
         ),
     ]
