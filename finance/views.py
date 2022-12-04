@@ -66,7 +66,7 @@ def reservations_add(request):
                     },
                 )
             else:
-                form = ReservationForm(request.POST)
+               form = ReservationForm(request.POST)
     else:
         form = ReservationForm()
 
