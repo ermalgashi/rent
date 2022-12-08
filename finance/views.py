@@ -18,7 +18,7 @@ def check_car_availability(pickup_date, return_date, car):
             avaliable_list.append(True)
         else:
             avaliable_list.append(False)
-
+ 
     return all(avaliable_list)
 
 

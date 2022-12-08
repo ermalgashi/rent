@@ -14,6 +14,9 @@ class Reservation(models.Model):
     def get_days(self):
         return (self.return_date - self.pickup_date).days
 
+    def get_pickup_date(self):
+        return self.pickup_date
+
     def grand_total(self):
         # duhet qartesohet data e fillimit dhe e kthimit.
         return (self.return_date - self.pickup_date).days * self.price
