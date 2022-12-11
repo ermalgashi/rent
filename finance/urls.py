@@ -12,4 +12,5 @@ urlpatterns = [
         name="reservations_detail",
     ),
     path("reservations_add/", views.reservations_add, name="reservations_add"),
+    path("edit_reservation/<int:pk>/edit", views.reservation_edit, name="reservations_edit"),
 ]

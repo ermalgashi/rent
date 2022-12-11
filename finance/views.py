@@ -2,6 +2,7 @@ import datetime
 import json
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 
 from .models import Reservation
 from .forms import ReservationForm
@@ -28,7 +29,7 @@ def reservations_base(request):
 
 
 def reservations_list(request):
-    reservations = Reservation.objects.all().order_by("pickup_date")
+    reservations = Reservation.objects.all().order_by("-id")
     return render(
         request, "reservations/reservation_list.html", {"reservations": reservations}
     )
@@ -76,5 +77,33 @@ def reservations_add(request):
         {
             "reservation": reservations,
             "form": form,
+        },
+    )
+
+def reservation_edit(request, pk):
+    reservation = get_object_or_404(Reservation, pk=pk)
+    if request.method == "POST":
+        form = ReservationForm(request.POST, instance=reservation)
+        if form.is_valid():
+            form.save()
+            return HttpResponse(
+                status=204,
+                headers={
+                    "HX-Trigger": json.dumps(
+                        {
+                            "carListChanged": None,
+                            "showMessage": f"{reservation.car_make} updated.",
+                        }
+                    )
+                },
+            )
+    else:
+        form = ReservationForm(instance=reservation)
+    return render(
+        request,
+        "reservations/reservation_form.html",
+        {
+            "form": form,
+            "reservation": reservation,
         },
     )

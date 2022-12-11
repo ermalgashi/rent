@@ -3,13 +3,14 @@
 <tr id="" class="reservation-row">
   <td>{{ reservation.customer }}</td>
   <td>{{ reservation.car }}</td>
-  <td><span class="">{{ reservation.pickup_date|date:"d-M-y" }} / {{ reservation.return_date|date:"d-M-y" }}</span></td>
+  <td><span class="">{{ reservation.pickup_date|date:"d-M-y" }} </span></td>
+  <td><span class="">{{ reservation.return_date|date:"d-M-y" }}</span></td>
   <td>{{reservation.get_days}}</td>
   <td>{{ reservation.price }}€</td>
   <td>{{ reservation.grand_total }}€</td>
   
   <td>
-  <button class="btn" hx-get="" hx-target="#dialog"><i class="fa-solid fa-pen"> </i></button>
+  <button class="btn" hx-get="{% url 'reservations:reservations_edit' pk=reservation.pk %}" hx-target="#dialog"><i class="fa-solid fa-pen"> </i></button>
   <button class="btn" hx-get="{% url 'reservations:reservations_detail' pk=reservation.pk %}" hx-target="#view-dialog"><i class="fa-solid fa-eye"> </i></button>
   </td>
 </tr>
