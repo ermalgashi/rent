@@ -1,6 +1,6 @@
 import json
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from .forms import CustomerForm
 from .models import Customer
@@ -39,18 +39,24 @@ def customer_add(request):
         form = CustomerForm(request.POST)
         if form.is_valid():
             customer = form.save()
-            return HttpResponse(
-                status=204,
-                headers={
-                    "HX-Trigger": json.dumps(
-                        {
-                            "customerListChanged": None,
-                            "showMessage": f"{customer.name} added.",
-                        }
-                    )
-                },
-            )
+            if "customers" in request.META.get('HTTP_REFERER'): 
+                return HttpResponse(
+                    status=204,
+                    headers={
+                        "HX-Trigger": json.dumps(
+                            {
+                                "customerListChanged": None,
+                                "showMessage": f"{customer.name} added.",
+                            }
+                        )
+                    },
+                )
+            else:
+                return HttpResponseRedirect(
+                    "/reservations_add/"
+                )
     else:
+      
         form = CustomerForm()
     return render(
         request,

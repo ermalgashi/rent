@@ -1,45 +1,39 @@
 {% load widget_tweaks %}
 {% with WIDGET_ERROR_CLASS='is-invalid' %}
-<form hx-post="{{ request.path }}" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' class="modal-content">
+<form hx-post="{{ request.path }}" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' class="modal-content" >
   <div class="modal-header">
     <h5 class="modal-title">Edit Reservation</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
   <div class="modal-body">
     <div class="mb-3">
-      <label for="{{ form.name.id_for_label }}" class="form-label">Emri</label>
-      {% render_field form.name class="form-control" placeholder="Giovanni" %}
-      <div class="invalid-feedback">{{ form.name.errors|first }}</div>
+      <label for="{{ form.customer.id_for_label }}" class="form-label">Customer </label>
+      <i style="float:right; cursor: pointer;" class="fa-sharp fa-solid fa-circle-plus" hx-get="{% url 'customers:customer_add' %}"></i>
+      {% render_field form.customer class="form-control" %}
+      <div class="invalid-feedback">{{ form.customer.errors|first }}</div>
+    </div>
+    
+    <div class="mb-3">
+      <label for="{{ form.car.id_for_label }}" class="form-label">Car</label>
+      {% render_field form.car class="form-control" %}
+      <div class="invalid-feedback">{{ form.car.errors|first }}</div>
     </div>
 
     <div class="mb-3">
-        <label for="{{ form.surname.id_for_label }}" class="form-label">Mbiemri</label>
-        {% render_field form.surname class="form-control" placeholder="Ferrini" %}
-        <div class="invalid-feedback">{{ form.surname.errors|first }}</div>
+      <label for="{{ form.price.id_for_label }}" class="form-label">Price</label>
+      {% render_field form.price class="form-control" %}
+      <div class="invalid-feedback">{{ form.price.errors|first }}</div>
     </div>
 
     <div class="mb-3">
-        <label for="{{ form.phone_number.id_for_label }}" class="form-label">Mbiemri</label>
-        {% render_field form.phone_number class="form-control" placeholder="045 505 525" %}
-        <div class="invalid-feedback">{{ form.surname.errors|first }}</div>
+      <label for="{{ form.pickup_date.id_for_label }}" class="form-label">Pickup Date</label>
+      {% render_field form.pickup_date  type="date" class="form-control" %}
+      <div class="invalid-feedback">{{ form.pickup_date.errors|first }}</div>
     </div>
-
     <div class="mb-3">
-        <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
-        {% render_field form.email class="form-control" placeholder="example@email.com" %}
-        <div class="invalid-feedback">{{ form.email.errors|first }}</div>
-    </div>
-
-    <div class="mb-3">
-        <label for="{{ form.license_id.id_for_label }}" class="form-label">License No.</label>
-        {% render_field form.license_id class="form-control" placeholder="12135798" %}
-        <div class="invalid-feedback">{{ form.license_id.errors|first }}</div>
-    </div>
-
-    <div class="mb-3">
-        <label for="{{ form.country.id_for_label }}" class="form-label">Shteti</label>
-        {% render_field form.country class="form-control" placeholder="Kosovo" %}
-        <div class="invalid-feedback">{{ form.country.errors|first }}</div>
+      <label for="{{ form.return_date.id_for_label }}" class="form-label">Return Date</label>
+      {% render_field form.return_date type="date" class="form-control" %}
+      <div class="invalid-feedback">{{ form.return_date.errors|first }}</div>
     </div>
    
   <div class="modal-footer">
