@@ -11,17 +11,16 @@
       {% for error in form.non_field_errors %}
         <div class="alert alert-danger" role="alert">{{error}}</div>
       {% endfor %}
-      <label for="{{ form.car.id_for_label }}" class="form-label">Car</label>
-      {% render_field form.car type="text" class="form-control" %}
-      <!-- {% render_field form.car type="text" class="form-control" hx-get="/reservations_add" hx-trigger="change"%} -->
-      <div class="invalid-feedback">{{ form.car.errors|first }}</div>
-    </div>
-    <div class="mb-3">
       <label for="{{ form.customer.id_for_label }}" class="form-label">Customer</label>
       <i style="float:right; cursor: pointer;" class="fa-sharp fa-solid fa-circle-plus" hx-get="{% url 'customers:customer_add' %}" hx-target="#dialog"></i>
       {% render_field form.customer class="form-control"%}
       <div class="invalid-feedback">{{ form.customer.errors|first }}</div>
-      
+    </div>
+    <div class="mb-3">
+      <label for="{{ form.car.id_for_label }}" class="form-label">Car</label>
+      {% render_field form.car type="text" class="form-control" %}
+      <!-- {% render_field form.car type="text" class="form-control" hx-get="/reservations_add" hx-trigger="change"%} -->
+      <div class="invalid-feedback">{{ form.car.errors|first }}</div>
     </div>
     <div class="mb-3">
       <label for="{{ form.price.id_for_label }}" class="form-label">Price</label>
