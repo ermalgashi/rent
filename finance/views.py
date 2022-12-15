@@ -7,9 +7,10 @@ from django.shortcuts import get_object_or_404
 from .models import Reservation
 from .forms import ReservationForm
 
-import io
-from django.http import FileResponse
-from reportlab.pdfgen import canvas
+from io import BytesIO
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 
 def check_car_availability(pickup_date, return_date, car):
     qs = Reservation.objects.filter(car=car)
@@ -127,9 +128,11 @@ def render_to_pdf(template_src, context_dict={}):
 def print_invoice(request, pk):
 
     reservation = Reservation.objects.get(pk=pk)
-    
+    data = {
+
+    }
+
+    pdf = render_to_pdf('reservations/pdf_template.html', data)
 
 
-
-
-    return HttpResponse("pdf", content_type='application/pdf')
+    return HttpResponse(pdf, content_type='application/pdf')
