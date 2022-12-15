@@ -7,6 +7,9 @@ from django.shortcuts import get_object_or_404
 from .models import Reservation
 from .forms import ReservationForm
 
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
 
 def check_car_availability(pickup_date, return_date, car):
     qs = Reservation.objects.filter(car=car)
@@ -19,7 +22,7 @@ def check_car_availability(pickup_date, return_date, car):
             avaliable_list.append(True)
         else:
             avaliable_list.append(False)
- 
+
     return all(avaliable_list)
 
 
@@ -67,7 +70,7 @@ def reservations_add(request):
                     },
                 )
             else:
-               form = ReservationForm(request.POST)
+                form = ReservationForm(request.POST)
     else:
         form = ReservationForm()
 
@@ -79,6 +82,7 @@ def reservations_add(request):
             "form": form,
         },
     )
+
 
 def reservation_edit(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
@@ -107,3 +111,25 @@ def reservation_edit(request, pk):
             "reservation": reservation,
         },
     )
+    
+def render_to_pdf(template_src, context_dict={}):
+	template = get_template(template_src)
+	html  = template.render(context_dict)
+	result = BytesIO()
+	pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+	if not pdf.err:
+		return HttpResponse(result.getvalue(), content_type='application/pdf')
+	return None
+
+
+
+
+def print_invoice(request, pk):
+
+    reservation = Reservation.objects.get(pk=pk)
+    
+
+
+
+
+    return HttpResponse("pdf", content_type='application/pdf')

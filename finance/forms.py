@@ -37,4 +37,3 @@ class ReservationForm(forms.ModelForm):
             if date in date_list:
                 raise ValidationError(f"Data me afert lire per kthim te kesaj veture eshte {min(date_list)}")
         
-       

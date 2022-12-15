@@ -12,6 +12,7 @@
   <td>
   <button class="btn" hx-get="{% url 'reservations:reservations_edit' pk=reservation.pk %}" hx-target="#dialog"><i class="fa-solid fa-pen"> </i></button>
   <button class="btn" hx-get="{% url 'reservations:reservations_detail' pk=reservation.pk %}" hx-target="#view-dialog"><i class="fa-solid fa-eye"> </i></button>
+  <a class="btn" href="{% url 'reservations:print_invoice' pk=reservation.pk %}" ><i class="fa-solid fa-print"> </i></a>  
   </td>
 </tr>
 
