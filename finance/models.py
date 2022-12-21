@@ -2,11 +2,20 @@ from django.db import models
 from customer.models import Customer
 from cars.models import Car
 
+FUEL_CAPACITY = (
+    ("1/4", "1/4"),
+    ("2/4", "2/4"),
+    ("3/4", "3/4"),
+    ("4/4", "4/4"),
+)
+
+
 # Create your models here.
 class Reservation(models.Model):
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    fuel_capacity = models.CharField(max_length=10, choices=FUEL_CAPACITY)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     pickup_date = models.DateField()
     return_date = models.DateField()

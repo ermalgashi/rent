@@ -3,10 +3,10 @@ from django.db import models
 from django.urls import reverse
 
 COUNTRIES = (
-    ("ALBANIA", "Albania"),
-    ("KOSOVO", "Kosovo"),
-    ("ITALY", "Italy"),
-    ("USA", "Usa"),
+    ("SHQIPËRISË", "Shqipëria"),
+    ("KOSOVËS", "Kosovës"),
+    ("ITALISË", "Italisë"),
+    ("SHBA", "Shba"),
     # we will add others when we need,
     # or maybe create a new table for coutries, if needed
 )
@@ -19,7 +19,7 @@ class Customer(models.Model):
     email = models.EmailField(unique=True)
     license_id = models.CharField(max_length=50, unique=True)
     # Adding Scanned License should be optional, but will it help the data or is it not nescessary.
-    country = models.CharField(max_length=10, choices=COUNTRIES, default="ITALY")
+    country = models.CharField(max_length=10, choices=COUNTRIES, default="ITALISË")
     # Maybe we should add customer rating, to help us decide whether should we keep serving him or no!
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -9,10 +9,10 @@ FUEL_TYPE_CHOICES = (
 )
 
 INSURANCE = (
-    ("CASCO", "Casco"),
-    ("BASIC", "Basic"),
-    ("REGIONAL", "Regional"),
-    ("INTERNATIONAL", "International"),
+    ("CASCO/REGIONAL", "Casco/Regional"),
+    ("BASIC/REGIONAL", "Basic/Regional"),
+    ("CASCO/LOCAL", "Casco/Local"),
+    ("CASCO/LOCAL", "Casco/Local"),
 )
 
 

@@ -10,6 +10,7 @@ from .models import Reservation
 from .forms import ReservationForm
 
 from customer.models import Customer
+from cars.models import Car
 
 from io import BytesIO
 from django.http import HttpResponse
@@ -158,6 +159,7 @@ def render_to_pdf(template_src, context_dict={}):
 def print_invoice(request, pk):
     reservation = Reservation.objects.get(pk=pk)
     customer = Customer.objects.get(pk=reservation.customer.pk)
+    car = Car.objects.get(pk=reservation.car.pk)
     data = {
         "address": customer.country,
         "phone": customer.phone_number,
@@ -167,8 +169,19 @@ def print_invoice(request, pk):
         "license_id": customer.license_id,
         "grand_total": reservation.grand_total(),
         "car": reservation.car,
+        "car_make": car.car_make,
+        "car_model": car.car_model,
+        "vin": car.vin,
+        "color": car.color,
+        "insurance_type": car.insurance_type,
+        "fuel_type": car.car_fuel_type,
+        "registration_number": car.registration_number,
+        "pickup_date": reservation.pickup_date,
+        "return_date": reservation.return_date,
+        "fuel_capacity": reservation.fuel_capacity,
         "days": reservation.get_days(),
         "price": reservation.price,
+        
 
     }
 
