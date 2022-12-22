@@ -161,6 +161,7 @@ def print_invoice(request, pk):
     customer = Customer.objects.get(pk=reservation.customer.pk)
     car = Car.objects.get(pk=reservation.car.pk)
     data = {
+        "pk": reservation.pk,
         "address": customer.country,
         "phone": customer.phone_number,
         "name": customer.name,
@@ -181,6 +182,7 @@ def print_invoice(request, pk):
         "fuel_capacity": reservation.fuel_capacity,
         "days": reservation.get_days(),
         "price": reservation.price,
+        "customer":customer,
         
 
     }

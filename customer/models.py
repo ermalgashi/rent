@@ -3,10 +3,10 @@ from django.db import models
 from django.urls import reverse
 
 COUNTRIES = (
-    ("SHQIPËRISË", "Shqipëria"),
-    ("KOSOVËS", "Kosovës"),
-    ("ITALISË", "Italisë"),
-    ("SHBA", "Shba"),
+    ("Albania", "Shqipëria"),
+    ("Kosovo", "Kosovës"),
+    ("Italy", "Italisë"),
+    ("USA", "Shba"),
     # we will add others when we need,
     # or maybe create a new table for coutries, if needed
 )

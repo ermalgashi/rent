@@ -1,6 +1,6 @@
 {% load static %}
 <head>
-    <title> This Title </title>
+    
     <style>
         .right_float {
             float: right;
@@ -13,24 +13,30 @@
             text-align: center;
             font-size: 20px;
         }
+
         @page {
             size: a4 portrait;
             @frame header_frame {           /* Static Frame */
                 -pdf-frame-content: header_content;
                 left: 50pt; width: 512pt; top: 50pt; height: 40pt;
             }
-            @frame content_frame {          /* Content Frame */
-                left: 50pt; width: 512pt; top: 90pt; height: 632pt;
-            }
+           
             @frame footer_frame {           /* Another static Frame */
                 -pdf-frame-content: footer_content;
-                left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+                left: 50pt; width: 512pt; top: 772pt; height: 40pt;
+            }
+            @frame col1_frame {             /* Content frame 1 */
+                left: 44pt; width: 245pt; top: 90pt; height: 640pt;
+            }
+            @frame col2_frame {             /* Content frame 2 */
+                left: 300pt; width: 245pt; top: 90pt; height: 640pt;
             }
         }
        
+        
     </style>
     </head>
-    
+    <title> This Title </title>
     <body>
         <!-- Content for Static Frame 'header_frame' -->
         <div id="header_content">
@@ -38,16 +44,56 @@
         </div>
     
         <!-- Content for Static Frame 'footer_frame' -->
-        <div id="footer_content">(c) - page <pdf:pagenumber>
-            of <pdf:pagecount>
+        <div id="footer_content"> 
+            <pre> Melodia Sh.p.k  NRB:810073594                                                  {{name}} {{surname}}: {{license_id}}
+     __________________                                                            ____________________
+            </pre>
         </div>
-
+        <h1 style="text-align: center;"> Kontratë mbi dhënien e veturës me qira </h1>
+        <p style="text-align: justify;"> Për: {{name}} {{surname}} me numër personal: <span style="text-decoration: underline wavy cyan 10px">{{license_id}}</span> 
+                    dokument i lëshuar nga shteti i {{customer.get_country_display}}.
+                    Kjo kontratë do të shërbej edhe si autorizim për të lartëcekurin për përdorimin e vetuës sipas rregullave të paraqitura si vijojnë.
+                    Vetura ipet me qira nga data <strong>{{pickup_date|date:"d-m-Y"}} </strong> deri me datën <strong> {{return_date|date:"d-m-Y"}} ora 23:00 </strong> 
+                    si shërbim i paguar nga i lartëcekuri në faturën e paraqitur në pjesën e fundit të këtij dokumenti. 
+                    I njejti do të ngas makinën pronë e ndërmarrjes: Melodia SH.P.K. me <strong> NRB:810073594</strong>, Njesia nr.5 Melodia Rent A Car  
+                </p>
+                    
+                    
+                    <ul>
+                        Shenimet e veturës:
+                    <li>Prodhuesi:<strong> {{car_make}} </strong></li>
+                    <li> Model: <strong> {{car_model}}</strong>,</li>
+                    <li> Targa: <strong>{{registration_number}}</strong>,</li>
+                    <li> Ngjyra: <strong> {{color}}</strong>,</li>
+                    <li> Nr. Shasisë <strong> {{vin}}</strong>,</li>
+                    <li> Lloji i derivateve: <strong>{{fuel_type|title}} </strong>,</li>
+                    <li> Gjendja e rezervuarit të veturës: <strong> {{fuel_capacity}}</strong>.</li>
+                    </ul>
+                    
+                    <p style="text-align: justify;">
+                        <strong>Vërejtje:</strong>
+                        Vlera e veturës është 17.000.00 Euro. Vetura posedon sigurim {{insurance_type|title}}, në rast të aksidentit ku klienti është fajtore, pjesëmarrja është deri ne 1000 Euro, në rast të vjedhjes apo dëmtimit total te veturës klienti është pjesëmarrës 20% te vlerës se veturës.
+                    </p>
+                        <div>
+                        Sigurimi {{insurance_type|title}} nuk mbulon nëse vetura përdoret:
+                        <ul>
+                        <li> Nga personat te cilët nuk janë te cekur ne kontratë.</li>
+                        <li> Ne shtet tjetër përveç atyre vendeve që janë cekur te kontratës.</li>
+                        <li> Për transportin e mallrave me peshe.</li>
+                        <li> Për çfarë do lloji te garave apo prova te shpejtësisë.</li>
+                        <li> Nen ndikimin e alkoolit, mjeteve narkotike, qetësuesve, për gjumë apo medikamenteve të tjera që ndikojnë negativisht.</li>
+                        <li> Për shkak të ngarkimit me udhëtarë me shumë se vendet qe i ka të lejuara për qëndrim. </li>
+                        <li> Jashtë rrugëve automobilistike te kategorizuara, ku munden të dëmtohen pjesët e veturës (gomat, pjesët mbrojtëse të motorit etj.).</li>
+                        </ul>
+                        Ne rast te mosmarrëveshjes, palët pajtohen që të hapet rasti ne Gjykatën Kompetente.
+                    </div>
+                
         <div class="container mt-5 mb-3">
             <div class="row d-flex justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="d-flex flex-row p-2" style="margin-bottom:2px;"> <img src="{% static 'logo.png' %}" width="100">
-                            <div class="d-flex flex-column" style="padding-left: 5px;"> <span class="font-weight-bold">Invoice</span> <small>INV-001</small> </div>
+                        <div class="d-flex flex-row p-2"> 
+                            <div class="d-flex flex-column" > <strong><span class="font-weight-bold">Rezervimi: </span> {{pk}}</strong></div>
                         </div>
                         <hr>
                         <div class="table-responsive p-2">
@@ -69,34 +115,23 @@
                             <table class="table table-borderless">
                                 <tbody>
                                     <tr class="add">
-                                        <td>Description</td>
-                                        <td>Days</td>
-                                        <td>Price</td>
+                                        <td>Përshkrimi</td>
+                                        <td>Ditë</td>
+                                        <td>Çmimi</td>
                                         <td class="text-center">Total</td>
+                                        
                                     </tr>
                                     <tr class="content">
-                                        <td>Website Redesign</td>
-                                        <td>15</td>
-                                        <td>$1,500</td>
-                                        <td class="text-center">$22,500</td>
-                                    </tr>
-                                    <tr class="content">
-                                        <td>Logo & Identity</td>
-                                        <td>10</td>
-                                        <td>$1,500</td>
-                                        <td class="text-center">$15,000</td>
-                                    </tr>
-                                    <tr class="content">
-                                        <td>Marketing Collateral</td>
-                                        <td>3</td>
-                                        <td>$1,500</td>
-                                        <td class="text-center">$4,500</td>
+                                        <td>Veturë me qira</td>
+                                        <td>{{days}}</td>
+                                        <td>{{price}} Euro</td>
+                                        <td class="text-center">{{grand_total}} Euro</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <hr>
-                        <div class="products p-2">
+                        {% comment %} <div class="products p-2">
                             <table class="table table-borderless">
                                 <tbody>
                                     <tr class="add">
@@ -110,11 +145,10 @@
                                         <td>$40,000</td>
                                         <td>2,500</td>
                                         <td class="text-center">$42,500</td>
-                                    </tr>
+                                    </tr> {% endcomment %}
                                 </tbody>
                             </table>
                         </div>
-                        <hr>
                         <div class="address p-2">
                             <table class="table table-borderless">
                                 <tbody>
@@ -122,7 +156,7 @@
                                         <td>Bank Details</td>
                                     </tr>
                                     <tr class="content">
-                                        <td> Bank Name : ADS BANK <br> Swift Code : ADS1234Q <br> Account Holder : Jelly Pepper <br> Account Number : 5454542WQR <br> </td>
+                                        <td> Bank Name : NLB Bank <br> Swift Code :  <br> Account Holder : Melodia Sh.p.k <br> Account Number :  <br> </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -131,25 +165,124 @@
                 </div>
             </div>
         </div>
-        
 
-        <h1 style="font-size: 20px; text-align: center;"> Kontratë mbi dhënien e veturës me qira </h1>
-        <p style="font-size: 15px"> Për: {{name}} {{surname}} me numër personal: <span style="text-decoration: underline wavy cyan 10px">{{license_id}}</span> 
-            dokument i lëshuar nga shteti i {{address|title}}</p>
-        <p style="font-size: 13px; text-align: justify;">
-            {% comment %} Pronari duhet me u rregullu me u be dinamik {% endcomment %}
-            Kjo kontratë do të shërbej edhe si autorizim për të lartëcekurin për përdorimin e vetuës sipas rregullave të paraqitura si vijojnë.
-            Vetura ipet me qira nga data <strong>{{pickup_date|date:"d-m-Y"}} </strong> deri me datën <strong> {{return_date|date:"d-m-Y"}} ora 23:00 </strong> si shërbim i paguar nga i lartëcekuri
-            në faturën e paraqitur në pjesën e parë të këtij dokumenti. 
-            I njejti do të ngas makinën pronë e ndërmarrjes: MELODIA SH.P.K. me <strong> NRB:810073594</strong>, Njesia nr.5 MELODIA RENT A CAR 
-            <br><br> Shenimet e veturës: <br>
-            Prodhuesi:<strong> {{car_make}} </strong> model: <strong> {{car_model}}</strong>, me targa: <strong>{{registration_number}}</strong>
-            me ngjyrë: <strong> {{color}}</strong> dhe me numër të shasisë: <strong> {{vin}}</strong>. Lloji i derivateve: <strong>{{fuel_type|title}} </strong>, Gjendja e rezervuarit të veturës: <strong> {{fuel_capacity}}</strong>
-            <br>
-            
-
-
-        </p>
+        <h1 style="text-align: center;"> Vehicle rental contract </h1>
+        <p style="text-align: justify;"> For: {{name}} {{surname}} with personal number: <span style="text-decoration: underline wavy cyan 10px">{{license_id}}</span> 
+                    document issued by the state of {{address}}.
+                    This contract will also serve as an authorization for the aforementioned to use the vehicle according to the rules presented as follows.
+                    The vehicle is rented from the date <strong>{{pickup_date|date:"d-m-Y"}} </strong> until the date <strong> {{return_date|date:"d-m-Y"}} at hour 23:00 </strong> 
+                    as a service paid by the aforementioned in the invoice presented in the last part of this document.
+                    The same will drive the vehicle owned by the company: Melodia SH.P.K. with <strong> NRB:810073594</strong>, Dep. no.5 Melodia Rent A Car 
+                </p>
+                    
+                    
+                    <ul>
+                        Vehicle details:
+                    <li>Maker:<strong> {{car_make}} </strong></li>
+                    <li> Model: <strong> {{car_model}}</strong>,</li>
+                    <li> Registration Number: <strong>{{registration_number}}</strong>,</li>
+                    <li> Color: <strong> {{color}}</strong>,</li>
+                    <li> VIN <strong> {{vin}}</strong>,</li>
+                    <li> Type of fuel: <strong>{{fuel_type|title}} </strong>,</li>
+                    <li> Vehicle tank condition: <strong> {{fuel_capacity}}</strong>.</li>
+                    </ul>
+                    
+                    <p style="text-align: justify;">
+                        <strong>Remarks:</strong>
+                        The value of the vehicle is 17,000.00 Euro. The vehicle has insurance {{insurance_type|title}}, in case of an accident where the customer is at fault, 
+                        the participation is up to 1000 Euro, in case of theft or total damage to the vehicle, the customer participates in 20% of the value of the vehicle.
+                    </p>
+                        <div>
+                        Insurance {{insurance_type|title}} it does not cover if the vehicle is used:
+                        <ul>
+                        <li> From persons who are not mentioned in the contract.</li>
+                        <li> Ne shtet tjetër përveç atyre vendeve që janë cekur te kontratës.</li>
+                        <li> For the transport of heavy goods.</li>
+                        <li> For what racing or speed trial.</li>
+                        <li> Under the influence of alcohol, narcotics, sedatives, sleeping pills or other medications that have a negative effect.</li>
+                        <li> Due to being loaded with more passengers than the places allowed for stay.</li>
+                        <li> Outside the categorized highways, where parts of the vehicle can be damaged (tyres, protective parts of the engine, etc.).</li>
+                        </ul>
+                        In case of disagreement, the parties agree to open the case in the Competent Court.
+                    </div>
+                
+        <div class="container mt-5 mb-3">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="d-flex flex-row p-2"> 
+                            <div class="d-flex flex-column" > <strong><span class="font-weight-bold">Reservation: </span> {{pk}}</strong></div>
+                        </div>
+                        <hr>
+                        <div class="table-responsive p-2">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr class="add">
+                                        <td>For:</td>
+                                        <td>Frm:</td>
+                                    </tr>
+                                    <tr class="content">
+                                        <td class="font-weight-bold">{{name}} {{surname}} <br>{{address|title}}</td>
+                                        <td class="font-weight-bold">Melodia Sh.p.k <br> Kosovo</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr>
+                        <div class="products p-2">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr class="add">
+                                        <td>Description</td>
+                                        <td>Days</td>
+                                        <td>Price</td>
+                                        <td class="text-center">Total</td>
+                                        
+                                    </tr>
+                                    <tr class="content">
+                                        <td>vehicle for rent</td>
+                                        <td>{{days}}</td>
+                                        <td>{{price}} Euro</td>
+                                        <td class="text-center">{{grand_total}} Euro</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr>
+                        {% comment %} <div class="products p-2">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr class="add">
+                                        <td></td>
+                                        <td>Subtotal</td>
+                                        <td>GST(10%)</td>
+                                        <td class="text-center">Total</td>
+                                    </tr>
+                                    <tr class="content">
+                                        <td></td>
+                                        <td>$40,000</td>
+                                        <td>2,500</td>
+                                        <td class="text-center">$42,500</td>
+                                    </tr> {% endcomment %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="address p-2">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr class="add">
+                                        <td>Bank Details</td>
+                                    </tr>
+                                    <tr class="content">
+                                        <td> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </body>
     </html>
