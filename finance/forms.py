@@ -14,8 +14,7 @@ class ReservationForm(forms.ModelForm):
         return_date = self.cleaned_data.get("return_date")
         car = self.cleaned_data.get("car")
 
-        reservations = Reservation.objects.filter(car=car)
-        
+        reservations = Reservation.objects.filter(car=car).exclude(pk=self.instance.pk)
         
         date_list = []
         booked_dates = [pickup_date + datetime.timedelta(days=x) for x in range((return_date-pickup_date).days)]

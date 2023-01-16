@@ -102,7 +102,7 @@ def reservation_edit(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
     if request.method == "POST":
         form = ReservationForm(request.POST, instance=reservation)
-        print(form)
+        print(form.errors)
         if form.is_valid():
             form.save()
             
