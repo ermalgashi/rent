@@ -1,4 +1,3 @@
-import datetime
 import json
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -34,11 +33,18 @@ def check_car_availability(pickup_date, return_date, car):
 
 # Create your views here.
 def reservations_base(request):
-    return render(request, "reservations/reservation_base.html")
+    reservations = Reservation.objects.all()
+    total = 0
+    for reservation in reservations:
+        total += reservation.grand_total()
+    
+    return render(request, "reservations/reservation_base.html", {"reservations_total":total})
 
 
 def reservations_list(request):
     reservations = Reservation.objects.all().order_by("-id")
+
+    
     return render(
         request, "reservations/reservation_list.html", {"reservations": reservations}
     )
@@ -46,6 +52,8 @@ def reservations_list(request):
 
 def reservations_detail(request, pk):
     reservation = Reservation.objects.get(pk=pk)
+ 
+    
     return render(
         request,
         "reservations/reservation_detail.html",
@@ -94,20 +102,23 @@ def reservation_edit(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
     if request.method == "POST":
         form = ReservationForm(request.POST, instance=reservation)
+        print(form)
         if form.is_valid():
             form.save()
+            
             return HttpResponse(
                 status=204,
                 headers={
                     "HX-Trigger": json.dumps(
                         {
                             "carListChanged": None,
-                            "showMessage": f"{reservation.car_make} updated.",
+                            "showMessage": f"{reservation.id} updated.",
                         }
                     )
                 },
             )
     else:
+        
         form = ReservationForm(instance=reservation)
     return render(
         request,
@@ -183,6 +194,7 @@ def print_invoice(request, pk):
         "days": reservation.get_days(),
         "price": reservation.price,
         "customer":customer,
+        "payment":reservation.payment,
         
 
     }

@@ -61,8 +61,7 @@
                     
                     <ul>
                         Shenimet e veturës:
-                    <li>Prodhuesi:<strong> {{car_make}} </strong></li>
-                    <li> Model: <strong> {{car_model}}</strong>,</li>
+                    <li>Prodhuesi/Model:<strong> {{car_make}} {{car_model}} </strong></li>
                     <li> Targa: <strong>{{registration_number}}</strong>,</li>
                     <li> Ngjyra: <strong> {{color}}</strong>,</li>
                     <li> Nr. Shasisë <strong> {{vin}}</strong>,</li>
@@ -78,7 +77,7 @@
                         Sigurimi {{insurance_type|title}} nuk mbulon nëse vetura përdoret:
                         <ul>
                         <li> Nga personat te cilët nuk janë te cekur ne kontratë.</li>
-                        <li> Ne shtet tjetër përveç atyre vendeve që janë cekur te kontratës.</li>
+                        <li> Ne shtet tjetër përveç atyre vendeve që janë cekur në polisë të sigurimit.</li>
                         <li> Për transportin e mallrave me peshe.</li>
                         <li> Për çfarë do lloji te garave apo prova te shpejtësisë.</li>
                         <li> Nen ndikimin e alkoolit, mjeteve narkotike, qetësuesve, për gjumë apo medikamenteve të tjera që ndikojnë negativisht.</li>
@@ -131,21 +130,9 @@
                             </table>
                         </div>
                         <hr>
-                        {% comment %} <div class="products p-2">
-                            <table class="table table-borderless">
-                                <tbody>
-                                    <tr class="add">
-                                        <td></td>
-                                        <td>Subtotal</td>
-                                        <td>GST(10%)</td>
-                                        <td class="text-center">Total</td>
-                                    </tr>
-                                    <tr class="content">
-                                        <td></td>
-                                        <td>$40,000</td>
-                                        <td>2,500</td>
-                                        <td class="text-center">$42,500</td>
-                                    </tr> {% endcomment %}
+                        <br>
+                        <br>
+                        <br>
                                 </tbody>
                             </table>
                         </div>
@@ -153,10 +140,10 @@
                             <table class="table table-borderless">
                                 <tbody>
                                     <tr class="add">
-                                        <td>Bank Details</td>
+                                        <td>Payment</td>
                                     </tr>
                                     <tr class="content">
-                                        <td> Bank Name : NLB Bank <br> Swift Code :  <br> Account Holder : Melodia Sh.p.k <br> Account Number :  <br> </td>
+                                        <td> <strong>{{ payment|title }} </strong> </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -178,12 +165,11 @@
                     
                     <ul>
                         Vehicle details:
-                    <li>Maker:<strong> {{car_make}} </strong></li>
-                    <li> Model: <strong> {{car_model}}</strong>,</li>
-                    <li> Registration Number: <strong>{{registration_number}}</strong>,</li>
-                    <li> Color: <strong> {{color}}</strong>,</li>
-                    <li> VIN <strong> {{vin}}</strong>,</li>
-                    <li> Type of fuel: <strong>{{fuel_type|title}} </strong>,</li>
+                    <li>Make/Model:<strong> {{car_make}} {{car_model}}</strong>;</li>
+                    <li> Registration Number: <strong>{{registration_number}}</strong>;</li>
+                    <li> Color: <strong> {{color}}</strong>;</li>
+                    <li> VIN <strong> {{vin}}</strong>;</li>
+                    <li> Type of fuel: <strong>{{fuel_type|title}}</strong>;</li>
                     <li> Vehicle tank condition: <strong> {{fuel_capacity}}</strong>.</li>
                     </ul>
                     
@@ -196,7 +182,9 @@
                         Insurance {{insurance_type|title}} it does not cover if the vehicle is used:
                         <ul>
                         <li> From persons who are not mentioned in the contract.</li>
-                        <li> Ne shtet tjetër përveç atyre vendeve që janë cekur te kontratës.</li>
+                        <li> 
+                            In Countries not mentioned in the insurance policy.                           
+                        </li>
                         <li> For the transport of heavy goods.</li>
                         <li> For what racing or speed trial.</li>
                         <li> Under the influence of alcohol, narcotics, sedatives, sleeping pills or other medications that have a negative effect.</li>
@@ -249,33 +237,6 @@
                             </table>
                         </div>
                         <hr>
-                        {% comment %} <div class="products p-2">
-                            <table class="table table-borderless">
-                                <tbody>
-                                    <tr class="add">
-                                        <td></td>
-                                        <td>Subtotal</td>
-                                        <td>GST(10%)</td>
-                                        <td class="text-center">Total</td>
-                                    </tr>
-                                    <tr class="content">
-                                        <td></td>
-                                        <td>$40,000</td>
-                                        <td>2,500</td>
-                                        <td class="text-center">$42,500</td>
-                                    </tr> {% endcomment %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="address p-2">
-                            <table class="table table-borderless">
-                                <tbody>
-                                    <tr class="add">
-                                        <td>Bank Details</td>
-                                    </tr>
-                                    <tr class="content">
-                                        <td> </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>

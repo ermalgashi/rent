@@ -7,6 +7,11 @@
       <strong>Melodia-Rent</strong>
     </p>
   </div>
+  
+  {% if user.is_authenticated %}
+  <div align="center"> <h4>Gjendja ne Arkë: {{reservations_total}}€ </h4></div>
+  {% endif %}
+  
   <table class="table">
     <thead>
       <tr>
@@ -39,6 +44,7 @@
   >
     Shto Rezervim
   </button>
+  
 </div>
 
 <!-- Placeholder for the modal -->

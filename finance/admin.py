@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Reservation
+from .models import Reservation, Expenses
 
 # Register your models here.
 
@@ -29,3 +29,4 @@ class ReservationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Reservation, ReservationAdmin)
+admin.site.register(Expenses)

@@ -18,6 +18,11 @@
       {% render_field form.car class="form-control" %}
       <div class="invalid-feedback">{{ form.car.errors|first }}</div>
     </div>
+    <div class="mb-3">
+      <label for="{{ form.fuel_capacity.id_for_label }}" class="form-label">Fuel Capacity</label>
+      {% render_field form.fuel_capacity type="text" class="form-control" %}
+      <div class="invalid-feedback">{{ form.fuel_capacity.errors|first }}</div>
+    </div>
 
     <div class="mb-3">
       <label for="{{ form.price.id_for_label }}" class="form-label">Price</label>
@@ -34,6 +39,11 @@
       <label for="{{ form.return_date.id_for_label }}" class="form-label">Return Date</label>
       {% render_field form.return_date type="date" class="form-control" %}
       <div class="invalid-feedback">{{ form.return_date.errors|first }}</div>
+    </div>
+    <div class="mb-3">
+      <label for="{{ form.payment.id_for_label }}" class="form-label">Payment</label>
+      {% render_field form.payment type="text" class="form-control" %}
+      <div class="invalid-feedback">{{ form.payment.errors|first }}</div>
     </div>
    
   <div class="modal-footer">

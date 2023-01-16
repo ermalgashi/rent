@@ -7,7 +7,7 @@ from .models import Reservation
 class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = ["customer", "car", "price", "pickup_date", "return_date", "fuel_capacity"]
+        fields = ["customer", "car", "price", "pickup_date", "return_date", "fuel_capacity", "payment"]
 
     def clean(self, *args, **kwargs):
         pickup_date = self.cleaned_data.get("pickup_date")

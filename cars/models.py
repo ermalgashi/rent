@@ -12,7 +12,7 @@ INSURANCE = (
     ("CASCO/REGIONAL", "Casco/Regional"),
     ("BASIC/REGIONAL", "Basic/Regional"),
     ("CASCO/LOCAL", "Casco/Local"),
-    ("CASCO/LOCAL", "Casco/Local"),
+    ("BASIC/LOCAL", "Basic/Local"),
 )
 
 
