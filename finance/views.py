@@ -195,7 +195,7 @@ def print_invoice(request, pk):
         "price": reservation.price,
         "customer":customer,
         "payment":reservation.payment,
-        
+        "car_value":car.car_value,
 
     }
 

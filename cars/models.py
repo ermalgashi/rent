@@ -25,6 +25,7 @@ class Car(models.Model):
     car_fuel_type = models.CharField(
         max_length=10, choices=FUEL_TYPE_CHOICES, default="DIESEL"
     )
+    car_value = models.IntegerField()
     car_capacity = models.IntegerField()
     registration_number = models.CharField(max_length=20, unique=True)
     registration_date = models.DateField()

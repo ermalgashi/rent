@@ -17,6 +17,11 @@
         <div class="invalid-feedback">{{ form.car_model.errors|first }}</div>
     </div>
     <div class="mb-3">
+        <label for="{{ form.car_value.id_for_label }}" class="form-label">Car Value (Euro)</label>
+        {% render_field form.car_value class="form-control" placeholder="Golf VII" %}
+        <div class="invalid-feedback">{{ form.car_value.errors|first }}</div>
+    </div>
+    <div class="mb-3">
         <label for="{{ form.car_year.id_for_label }}" class="form-label">Year</label>
         {% render_field form.car_year class="form-control" placeholder="2021" %}
         <div class="invalid-feedback">{{ form.car_year.errors|first }}</div>
@@ -27,7 +32,7 @@
         <div class="invalid-feedback">{{ form.car_engine.errors|first }}</div>
     </div>
     <div class="mb-3">
-        <label for="{{ form.car_fuel_type.id_for_label }}" class="form-label">Engine</label>
+        <label for="{{ form.car_fuel_type.id_for_label }}" class="form-label">Fuel Type</label>
         {% render_field form.car_fuel_type class="form-control" placeholder="Diesel" %}
         <div class="invalid-feedback">{{ form.car_fuel_type.errors|first }}</div>
     </div>
