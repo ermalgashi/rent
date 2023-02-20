@@ -11,6 +11,7 @@ class CarForm(forms.ModelForm):
             "car_model",
             "car_year",
             "car_engine",
+            "car_value",
             "car_fuel_type",
             "car_capacity",
             "registration_number",
