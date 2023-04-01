@@ -8,6 +8,9 @@
       <h1>Customer Collection</h1>
       <p>This collection represents all the customers who have rented a car from <strong>Melodia-Rent</strong></p>
     </div>
+    <button hx-get="{% url 'customers:customer_add' %}" hx-target="#dialog" class="btn btn-primary">
+        Shto Konsumator
+    </button>
     <table class="table">
         <thead>
         <tr>
@@ -19,17 +22,40 @@
 
         </tr>
         </thead>
-        <tbody hx-trigger="load, customerListChanged from:body" hx-get="{% url 'customers:customer_list' %}" hx-target="this">
+        <tbody>
+        {% for customer in page_obj %}
+            <tr id="" class="customer-row">
+            <td>{{ customer.name }} {{customer.surname}}</td>
+            <td>{{ customer.email }}</td>
+            <td>{{ customer.phone_number }}</td>
+            <td>
+                <button
+                class="btn"
+                hx-get="{% url 'customers:customer_edit' pk=customer.pk %}"
+                hx-target="#dialog"
+                >
+                <i class="fa-solid fa-pen"> </i>
+                </button>
+                <button
+                class="btn"
+                hx-get="{% url 'customers:customer_detail' pk=customer.pk %}"
+                hx-target="#view-dialog"
+                >
+                <i class="fa-solid fa-eye"> </i>
+                </button>
+            </td>
+            </tr>
+            {% endfor %}
+            {% comment %} 
             <tr>
             <td class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
-            </td>
+            </td> 
             </tr>
+            {% endcomment %}
         </tbody>
     </table>
-    <button hx-get="{% url 'customers:customer_add' %}" hx-target="#dialog" class="btn btn-primary">
-        Shto Konsumator
-    </button>
+
     </div>
 
     <!-- Placeholder for the modal -->
@@ -42,4 +68,16 @@
         <div id="view-dialog" class="modal-dialog" hx-target="this"></div>
     </div>
 </div>
+
+<center>
+    
+{%if page_obj.has_previous %} {# whether the previous page exists #}
+            <a href="?page={{page_obj.previous_page_number}}"><</a> {# link to the prev page #}
+            {% endif %}
+            <span>{{page_obj.number}}</span> {# the current page number #}
+    
+            {%if page_obj.has_next %} {# whether the next page exists #}
+            <a href="?page={{page_obj.next_page_number}}">></a> {# link to the next page #}
+            {% endif %} 
+</center>
 {% endblock %}
