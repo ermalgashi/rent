@@ -26,16 +26,30 @@
         <th></th>
       </tr>
     </thead>
-    <tbody
-      hx-trigger="load, reservationListChanged from:body"
-      hx-get="{% url 'reservations:reservations_list' %}"
-      hx-target="this"
-    >
-      <tr>
+    <tbody>
+    {% for reservation in page_obj %}
+    <tr id="" class="reservation-row">
+      <td>{{ reservation.customer }}</td>
+      <td>{{ reservation.car }}</td>
+      <td><span class="">{{ reservation.pickup_date|date:"d-M-y" }} </span></td>
+      <td><span class="">{{ reservation.return_date|date:"d-M-y" }}</span></td>
+      <td>{{reservation.get_days}}</td>
+      <td>{{ reservation.price }}€</td>
+      <td>{{ reservation.grand_total }} </td>
+      
+      <td>
+      <button class="btn" hx-get="{% url 'reservations:reservations_edit' pk=reservation.pk %}" hx-target="#dialog"><i class="fa-solid fa-pen"> </i></button>
+      <button class="btn" hx-get="{% url 'reservations:reservations_detail' pk=reservation.pk %}" hx-target="#view-dialog"><i class="fa-solid fa-eye"> </i></button>
+      <a class="btn" download="{{ reservation.customer }} {{ reservation.pickup_date|date:"d-m-y" }}.pdf" href="{% url 'reservations:print_invoice' pk=reservation.pk %}" ><i class="fa-solid fa-print"> </i></a>  
+      </td>
+    </tr>
+
+    {% endfor %}
+      {% comment %} <tr>
         <td class="spinner-border" role="status">
           <span class="visually-hidden">Loading...</span>
         </td>
-      </tr>
+      </tr> {% endcomment %}
     </tbody>
   </table>
   <button
@@ -78,5 +92,60 @@
     </div>
   </div>
 </div>
+
+<!-- ... (rest of the template code) -->
+
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+          <a class="page-link" href="?page=1">&laquo; First</a>
+      </li>
+      <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+          <a class="page-link">&laquo; First</a>
+      </li>
+      <li class="page-item disabled">
+          <a class="page-link">Previous</a>
+      </li>
+      {% endif %}
+
+      {% with start=page_obj.number|add:"-3" end=page_obj.number|add:"2" %}
+      {% for i in page_obj.paginator.page_range %}
+      {% if i >= start and i <= end %}
+      {% if page_obj.number == i %}
+      <li class="page-item active">
+          <a class="page-link">{{ i }}</a>
+      </li>
+      {% else %}
+      <li class="page-item">
+          <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+      </li>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+      {% endwith %}
+
+      {% if page_obj.has_next %}
+      <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+      </li>
+      <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+          <a class="page-link">Next</a>
+      </li>
+      <li class="page-item disabled">
+          <a class="page-link">Last &raquo;</a>
+      </li>
+      {% endif %}
+  </ul>
+</nav>
+
 
 {% endblock %}

@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 import os
+from django.core.paginator import Paginator
 
 from .models import Reservation
 from .forms import ReservationForm
@@ -33,17 +34,26 @@ def check_car_availability(pickup_date, return_date, car):
 
 # Create your views here.
 def reservations_base(request):
-    reservations = Reservation.objects.all()
+    reservations = Reservation.objects.all().order_by("-return_date")
     total = 0
     for reservation in reservations:
         total += reservation.grand_total()
     
-    return render(request, "reservations/reservation_base.html", {"reservations_total":total})
+    p = Paginator(reservations, 10) 
+    page_number = request.GET.get('page')
+    try:
+        page_obj = p.get_page(page_number) 
+    except PageNotAnInteger:
+        page_obj = p.page(10)
+    except EmptyPage:
+        page_obj = p.page(p.num_pages)
+    context = {'page_obj': page_obj, "reservations_total":total}
+    
+    return render(request, "reservations/reservation_base.html", context)
 
 
 def reservations_list(request):
     reservations = Reservation.objects.all().order_by("-id")
-
     
     return render(
         request, "reservations/reservation_list.html", {"reservations": reservations}

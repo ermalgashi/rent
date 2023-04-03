@@ -37,32 +37,19 @@ def some_view(request):
 
 # Create your views here.
 def customer_base(request):
-    customers = Customer.objects.all()
-    p = Paginator(customers, 2)  # creating a paginator object
-    # getting the desired page number from url
+    customers = Customer.objects.all().order_by("-id")
+    p = Paginator(customers, 5) 
     page_number = request.GET.get('page')
     try:
-        page_obj = p.get_page(page_number)  # returns the desired page object
+        page_obj = p.get_page(page_number) 
     except PageNotAnInteger:
-        # if page_number is not an integer then assign the first page
         page_obj = p.page(1)
     except EmptyPage:
-        # if page is empty then return last page
         page_obj = p.page(p.num_pages)
     context = {'page_obj': page_obj}
-    # sending the page object to index.html
+
 
     return render(request, "customer/customer_base.html", context)
-
-
-def customer_list(request):
-    return render(
-        request,
-        "customer/customer_list.html",
-        {
-            "customers": Customer.objects.all().order_by("-id"),
-        },
-    )
 
 
 def customer_detail(request, pk):

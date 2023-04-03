@@ -17,13 +17,20 @@
 
       </tr>
     </thead>
-    <tbody hx-trigger="load, carListChanged from:body" hx-get="{% url 'cars:car_list' %}" hx-target="this">
-        <tr>
-          <td class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </td>
-        </tr>
-      </tbody>
+    <tbody>
+      {% for car in page_obj %}
+    <tr id="" class="car-row">
+      <td>{{ car.car_make }} {{car.car_model}}</td>
+      <td>{{ car.registration_number }}</td>
+      <td><span class="registration_expiration_date">{{ car.registration_expiration_date }}</span></td>
+      <td>
+        <button class="btn" hx-get="{% url 'cars:edit_car' pk=car.pk %}" hx-target="#dialog"><i class="fa-solid fa-pen"> </i></button>
+        <button class="btn" hx-get="{% url 'cars:detail_car' pk=car.pk %}" hx-target="#view-dialog"><i class="fa-solid fa-eye"> </i></button>
+        
+      </td>
+    </tr>
+      {% endfor %}
+    </tbody>
   </table>
   <button hx-get="{% url 'cars:add_car' %}" hx-target="#dialog" class="btn btn-primary">
     Shto Veture
@@ -49,5 +56,57 @@
     </div>
   </div>
 </div>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+          <a class="page-link" href="?page=1">&laquo; First</a>
+      </li>
+      <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+          <a class="page-link">&laquo; First</a>
+      </li>
+      <li class="page-item disabled">
+          <a class="page-link">Previous</a>
+      </li>
+      {% endif %}
+
+      {% with start=page_obj.number|add:"-3" end=page_obj.number|add:"2" %}
+      {% for i in page_obj.paginator.page_range %}
+      {% if i >= start and i <= end %}
+      {% if page_obj.number == i %}
+      <li class="page-item active">
+          <a class="page-link">{{ i }}</a>
+      </li>
+      {% else %}
+      <li class="page-item">
+          <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+      </li>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+      {% endwith %}
+
+      {% if page_obj.has_next %}
+      <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+      </li>
+      <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+          <a class="page-link">Next</a>
+      </li>
+      <li class="page-item disabled">
+          <a class="page-link">Last &raquo;</a>
+      </li>
+      {% endif %}
+  </ul>
+</nav>
 
 {% endblock %}
