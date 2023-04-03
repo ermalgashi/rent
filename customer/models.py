@@ -9,6 +9,7 @@ COUNTRIES = (
     ("USA", "Shba"),
     ("Bulgaria", "Bullgari"),
     ("Turkey", "Turqi"),
+    ("Hungary", "Hungari")
     # we will add others when we need,
     # or maybe create a new table for coutries, if needed
 )

@@ -21,9 +21,14 @@
     </div>
     <div class="mb-3">
       <label for="{{ form.car.id_for_label }}" class="form-label">Car</label>
-      {% render_field form.car type="text" class="form-control" %}
+      {% render_field form.car list="car-list" class="form-control" %}
       <!-- {% render_field form.car type="text" class="form-control" hx-get="/reservations_add" hx-trigger="change"%} -->
       <div class="invalid-feedback">{{ form.car.errors|first }}</div>
+      <datalist id="car-list">
+        {% for car in form.car %}
+        <option value="{{car}}">
+        {% endfor %}
+      </datalist>
     </div>
     <div class="mb-3">
       <label for="{{ form.fuel_capacity.id_for_label }}" class="form-label">Fuel Capacity</label>
