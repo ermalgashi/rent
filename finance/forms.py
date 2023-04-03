@@ -21,7 +21,7 @@ class ReservationForm(forms.ModelForm):
         
         
         for reservation in reservations:
-           date_list += [reservation.pickup_date + datetime.timedelta(days=x) for x in range((reservation.return_date-reservation.pickup_date).days)]
+           date_list += [reservation.pickup_date + datetime.timedelta(days=x) for x in range(1, (reservation.return_date - reservation.pickup_date).days)]
            
         if return_date < pickup_date:
             raise ValidationError("Data e kthimit nuk duhet te jete me e vogel se data e marrjes")
