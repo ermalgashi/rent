@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('finance', '0009_auto_20230116_1142'),
+        ("finance", "0009_auto_20230116_1142"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='expenses',
-            name='expense_sum',
+            model_name="expenses",
+            name="expense_sum",
             field=models.DecimalField(decimal_places=2, default=10, max_digits=5),
             preserve_default=False,
         ),

@@ -4,16 +4,15 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('finance', '0010_expenses_expense_sum'),
+        ("finance", "0010_expenses_expense_sum"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='expenses',
-            name='comments',
-            field=models.CharField(default='1', max_length=256),
+            model_name="expenses",
+            name="comments",
+            field=models.CharField(default="1", max_length=256),
             preserve_default=False,
         ),
     ]

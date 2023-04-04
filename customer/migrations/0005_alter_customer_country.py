@@ -4,15 +4,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('customer', '0004_alter_customer_country'),
+        ("customer", "0004_alter_customer_country"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='customer',
-            name='country',
-            field=models.CharField(choices=[('Albania', 'Shqipëria'), ('Kosovo', 'Kosovës'), ('Italy', 'Italisë'), ('USA', 'Shba')], default='ITALISË', max_length=10),
+            model_name="customer",
+            name="country",
+            field=models.CharField(
+                choices=[
+                    ("Albania", "Shqipëria"),
+                    ("Kosovo", "Kosovës"),
+                    ("Italy", "Italisë"),
+                    ("USA", "Shba"),
+                ],
+                default="ITALISË",
+                max_length=10,
+            ),
         ),
     ]

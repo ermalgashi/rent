@@ -10,44 +10,19 @@ import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 
-def some_view(request):
-    # Create a file-like buffer to receive PDF data.
-    buffer = io.BytesIO()
-
-    # Create the PDF object, using the buffer as its "file."
-    p = canvas.Canvas(buffer)
-
-    # Draw things on the PDF. Here's where the PDF generation happens.
-    # See the ReportLab documentation for the full list of functionality.
-    p.drawString(100, 100, "Hello world.")
-
-    # Close the PDF object cleanly, and we're done.
-    p.showPage()
-    p.save()
-
-    # FileResponse sets the Content-Disposition header so that browsers
-    # present the option to save the file.
-    buffer.seek(0)
-    return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
-
-
-
-
-
 
 # Create your views here.
 def customer_base(request):
     customers = Customer.objects.all().order_by("-id")
-    p = Paginator(customers, 5) 
-    page_number = request.GET.get('page')
+    p = Paginator(customers, 5)
+    page_number = request.GET.get("page")
     try:
-        page_obj = p.get_page(page_number) 
+        page_obj = p.get_page(page_number)
     except PageNotAnInteger:
         page_obj = p.page(1)
     except EmptyPage:
         page_obj = p.page(p.num_pages)
-    context = {'page_obj': page_obj}
-
+    context = {"page_obj": page_obj}
 
     return render(request, "customer/customer_base.html", context)
 
@@ -84,7 +59,6 @@ def customer_add(request):
             else:
                 return HttpResponseRedirect("/reservations_add/")
     else:
-
         form = CustomerForm()
     return render(
         request,
@@ -112,6 +86,7 @@ def customer_edit(request, pk):
                     )
                 },
             )
+        
     else:
         form = CustomerForm(instance=customer)
     return render(

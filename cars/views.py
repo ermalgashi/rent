@@ -9,18 +9,19 @@ from django.core.paginator import Paginator
 
 def home(request):
     cars = Car.objects.all().order_by("registration_expiration_date")
-    
-    p = Paginator(cars, 10) 
-    page_number = request.GET.get('page')
+
+    p = Paginator(cars, 10)
+    page_number = request.GET.get("page")
     try:
-        page_obj = p.get_page(page_number) 
+        page_obj = p.get_page(page_number)
     except PageNotAnInteger:
         page_obj = p.page(1)
     except EmptyPage:
         page_obj = p.page(p.num_pages)
-    context = {'page_obj': page_obj}
+    context = {"page_obj": page_obj}
 
     return render(request, "cars/car_base.html", context)
+
 
 def detail_car(request, pk):
     car = Car.objects.get(pk=pk)

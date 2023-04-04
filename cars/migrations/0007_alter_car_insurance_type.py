@@ -4,15 +4,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('cars', '0006_car_referal_price'),
+        ("cars", "0006_car_referal_price"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='car',
-            name='insurance_type',
-            field=models.CharField(choices=[('CASCO/REGIONAL', 'Casco/Regional'), ('BASIC/REGIONAL', 'Basic/Regional'), ('CASCO/LOCAL', 'Casco/Local'), ('CASCO/LOCAL', 'Casco/Local')], default='BASIC', max_length=20),
+            model_name="car",
+            name="insurance_type",
+            field=models.CharField(
+                choices=[
+                    ("CASCO/REGIONAL", "Casco/Regional"),
+                    ("BASIC/REGIONAL", "Basic/Regional"),
+                    ("CASCO/LOCAL", "Casco/Local"),
+                    ("CASCO/LOCAL", "Casco/Local"),
+                ],
+                default="BASIC",
+                max_length=20,
+            ),
         ),
     ]

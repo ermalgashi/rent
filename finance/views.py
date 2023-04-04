@@ -17,6 +17,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 
+
 def check_car_availability(pickup_date, return_date, car):
     qs = Reservation.objects.filter(car=car)
     avaliable_list = []
@@ -38,23 +39,23 @@ def reservations_base(request):
     total = 0
     for reservation in reservations:
         total += reservation.grand_total()
-    
-    p = Paginator(reservations, 10) 
-    page_number = request.GET.get('page')
+
+    p = Paginator(reservations, 10)
+    page_number = request.GET.get("page")
     try:
-        page_obj = p.get_page(page_number) 
+        page_obj = p.get_page(page_number)
     except PageNotAnInteger:
         page_obj = p.page(10)
     except EmptyPage:
         page_obj = p.page(p.num_pages)
-    context = {'page_obj': page_obj, "reservations_total":total}
-    
+    context = {"page_obj": page_obj, "reservations_total": total}
+
     return render(request, "reservations/reservation_base.html", context)
 
 
 def reservations_list(request):
     reservations = Reservation.objects.all().order_by("-id")
-    
+
     return render(
         request, "reservations/reservation_list.html", {"reservations": reservations}
     )
@@ -62,8 +63,7 @@ def reservations_list(request):
 
 def reservations_detail(request, pk):
     reservation = Reservation.objects.get(pk=pk)
- 
-    
+
     return render(
         request,
         "reservations/reservation_detail.html",
@@ -115,7 +115,7 @@ def reservation_edit(request, pk):
         print(form.errors)
         if form.is_valid():
             form.save()
-            
+
             return HttpResponse(
                 status=204,
                 headers={
@@ -128,7 +128,6 @@ def reservation_edit(request, pk):
                 },
             )
     else:
-        
         form = ReservationForm(instance=reservation)
     return render(
         request,
@@ -139,17 +138,18 @@ def reservation_edit(request, pk):
         },
     )
 
+
 def link_callback(uri, rel):
     """
     Convert HTML URIs to absolute system paths so xhtml2pdf can access those
     resources
     """
     # use short variable names
-    sUrl = settings.STATIC_URL     # Typically /static/
-    #static Root
-    sRoot = settings.STATIC_ROOT    # Typically /home/userX/project_static/
-    mUrl = settings.MEDIA_URL       # Typically /static/media/
-    mRoot = settings.MEDIA_ROOT     # Typically /home/userX/project_static/media/
+    sUrl = settings.STATIC_URL  # Typically /static/
+    # static Root
+    sRoot = settings.STATIC_ROOT  # Typically /home/userX/project_static/
+    mUrl = settings.MEDIA_URL  # Typically /static/media/
+    mRoot = settings.MEDIA_ROOT  # Typically /home/userX/project_static/media/
 
     # convert URIs to absolute system paths
     if uri.startswith(mUrl):
@@ -161,20 +161,20 @@ def link_callback(uri, rel):
 
     # make sure that file exists
     if not os.path.isfile(path):
-            raise Exception(
-                'media URI must start with %s or %s' % (sUrl, mUrl)
-            )
+        raise Exception("media URI must start with %s or %s" % (sUrl, mUrl))
     return path
 
 
 def render_to_pdf(template_src, context_dict={}):
-	template = get_template(template_src)
-	html  = template.render(context_dict)
-	result = BytesIO()
-	pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result, link_callback=link_callback)
-	if not pdf.err:
-		return HttpResponse(result.getvalue(), content_type='application/pdf')
-	return None
+    template = get_template(template_src)
+    html = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(
+        BytesIO(html.encode("ISO-8859-1")), result, link_callback=link_callback
+    )
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type="application/pdf")
+    return None
 
 
 def print_invoice(request, pk):
@@ -203,13 +203,11 @@ def print_invoice(request, pk):
         "fuel_capacity": reservation.fuel_capacity,
         "days": reservation.get_days(),
         "price": reservation.price,
-        "customer":customer,
-        "payment":reservation.payment,
-        "car_value":car.car_value,
-
+        "customer": customer,
+        "payment": reservation.payment,
+        "car_value": car.car_value,
     }
 
-    pdf = render_to_pdf('reservations/pdf_template.html', data)
+    pdf = render_to_pdf("reservations/pdf_template.html", data)
 
-
-    return HttpResponse(pdf, content_type='application/pdf')
+    return HttpResponse(pdf, content_type="application/pdf")

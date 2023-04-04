@@ -13,6 +13,7 @@ COUNTRIES = (
     # or maybe create a new table for coutries, if needed
 )
 
+
 # Create your models here.
 class Customer(models.Model):
     name = models.CharField(max_length=20)

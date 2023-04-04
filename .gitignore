@@ -8,9 +8,9 @@
 __pycache__
 db.sqlite3
 media
-
+fincance/
 # Backup files # 
-*.bak 
+.finance/migrations
 
 # Self Ideas
 code_in_review.html

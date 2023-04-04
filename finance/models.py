@@ -19,13 +19,12 @@ EXPENSES_TYPES = (
 
 PAYMENT = (
     ("Cash", "Kesh"),
-    ("Card","Kartelë"),
+    ("Card", "Kartelë"),
 )
 
 
 # Create your models here.
 class Reservation(models.Model):
-
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     fuel_capacity = models.CharField(max_length=10, choices=FUEL_CAPACITY)
